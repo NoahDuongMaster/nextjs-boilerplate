@@ -1,4 +1,4 @@
 {
   "upgrade": true,
-  "reject": ["sharp", "eslint"]
+  "reject": []
 }

@@ -12,7 +12,7 @@ import {
 } from '@solana/wallet-adapter-wallets';
 import { clusterApiUrl } from '@solana/web3.js';
 
-function SolanaWalletProvider({ children }: { children: React.ReactNode }) {
+function SolanaWalletsStore({ children }: { children: React.ReactNode }) {
   const network = WalletAdapterNetwork.Devnet;
 
   const endpoint = useMemo(() => clusterApiUrl(network), []);
@@ -36,4 +36,4 @@ function SolanaWalletProvider({ children }: { children: React.ReactNode }) {
   );
 }
 
-export default SolanaWalletProvider;
+export default SolanaWalletsStore;

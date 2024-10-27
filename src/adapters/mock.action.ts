@@ -3,7 +3,7 @@
 import 'server-only';
 
 import { revalidateTag } from 'next/cache';
-import { API_ROUTES } from '@/utils/constants';
+import { API_ROUTES } from '@/shared/routes.shared';
 
 const refetchGetMock = () => {
   revalidateTag(API_ROUTES.GET_MOCK);

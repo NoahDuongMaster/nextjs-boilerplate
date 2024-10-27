@@ -1,1 +1,3 @@
+#!/bin/sh
+
 sh ./.husky/validate-branch.sh

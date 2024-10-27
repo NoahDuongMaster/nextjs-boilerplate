@@ -39,3 +39,6 @@ yarn-error.log*
 # vercel
 .vercel
 .parcel-cache
+
+package-lock.json
+yarn.lock

@@ -1,17 +1,25 @@
-import {
-  ACCESS_TOKEN_STORAGE_KEY,
-  AUTH_METHOD,
-  THROW_EXCEPTION,
-} from '@/utils/constants';
-import { env } from 'env.mjs';
+import { envClient } from '@/shared/env-client';
+import { ACCESS_TOKEN_STORAGE_KEY } from '@/shared/jwt.shared';
+import { AUTH_SCHEMES } from '@/shared/schema.shared';
 import qs from 'qs';
 
-const defaultHeaders: HeadersInit = {
-  'Content-Type': 'application/json',
-};
-
-const BASE_URL = env.NEXT_PUBLIC_API_ENDPOINT;
+const BASE_URL = envClient.NEXT_PUBLIC_API_ENDPOINT;
 const DEFAULT_TIMEOUT = 20000;
+
+const getDefaultHeaders = (): HeadersInit => {
+  const headers: HeadersInit = {
+    'Content-Type': 'application/json',
+  };
+
+  if (envClient.NEXT_PUBLIC_AUTH_SCHEMES === AUTH_SCHEMES.Values.header) {
+    const accessToken = localStorage.getItem(ACCESS_TOKEN_STORAGE_KEY);
+    if (accessToken) {
+      headers.Authorization = `Bearer ${accessToken}`;
+    }
+  }
+
+  return headers;
+};
 
 const request = async (
   method: 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE',
@@ -20,24 +28,19 @@ const request = async (
   options?: RequestInit,
 ): Promise<Response | null | { message: string }> => {
   const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), DEFAULT_TIMEOUT);
 
   if (options?.signal) {
     options.signal.addEventListener('abort', () => controller.abort());
   }
 
-  const timeout = setTimeout(() => controller.abort(), DEFAULT_TIMEOUT);
-
-  if (env.NEXT_PUBLIC_AUTH_METHOD === AUTH_METHOD.HEADER) {
-    const accessToken = localStorage.getItem(ACCESS_TOKEN_STORAGE_KEY);
-    if (accessToken) {
-      defaultHeaders.Authorization = `Bearer ${accessToken}`;
-    }
-  }
-
   const commonOptions: RequestInit = {
     ...options,
     signal: controller.signal,
-    headers: Object.assign(defaultHeaders, options?.headers),
+    headers: {
+      ...getDefaultHeaders(),
+      ...options?.headers,
+    },
     method,
     next: {
       tags: [url],
@@ -45,24 +48,17 @@ const request = async (
     credentials: 'include',
   };
 
-  switch (method) {
-    case 'DELETE':
-    case 'GET':
-      url += data ? `?${qs.stringify(data)}` : '';
-      break;
-    case 'POST':
-    case 'PATCH':
-    case 'PUT':
-      commonOptions.body = JSON.stringify(data);
-      break;
+  if (['POST', 'PATCH', 'PUT'].includes(method)) {
+    commonOptions.body = JSON.stringify(data);
+  } else if (method === 'GET' || method === 'DELETE') {
+    url += data ? `?${qs.stringify(data)}` : '';
   }
 
   try {
     const res = await fetch(BASE_URL + url, commonOptions);
-    const result = await res.json();
-    return result;
+    return await res.json();
   } catch {
-    return { message: THROW_EXCEPTION.UNKNOWN };
+    return { message: "Something wen't wrong!" };
   } finally {
     clearTimeout(timeout);
   }

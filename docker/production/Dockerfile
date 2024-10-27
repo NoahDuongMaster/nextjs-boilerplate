@@ -3,6 +3,8 @@ FROM node:18-slim AS base
 # 1. Install dependencies only when needed
 FROM base AS deps
 
+COPY .husky/install.mjs ./app/.husky/
+
 WORKDIR /app
 
 # Install dependencies based on the preferred package manager

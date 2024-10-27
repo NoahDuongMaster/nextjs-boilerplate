@@ -2,7 +2,7 @@ import React, { memo } from 'react';
 import Link from 'next/link';
 import { doGetMock } from '@/adapters/mock.adapter';
 import { MOCK } from '@/mocks';
-import { WEB_ROUTES } from '@/utils/constants';
+import { WEB_ROUTES } from '@/shared/routes.shared';
 
 import { ShowSonnerToaster } from '../common/toast';
 

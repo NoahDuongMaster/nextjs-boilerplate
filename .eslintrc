@@ -5,7 +5,6 @@
     "prettier",
     "eslint:recommended",
     "google",
-    "plugin:storybook/recommended",
   ],
   "plugins": ["import"],
   "rules": {
@@ -24,5 +23,6 @@
     "operator-linebreak": "off",
     "quotes": "off",
     "comma-spacing": "off",
+    "valid-jsdoc": "off",
   },
 }

@@ -1,4 +1,4 @@
-import { cn } from '@/utils/helpers/common';
+import { cn } from '@nextui-org/react';
 
 function Skeleton({
   className,

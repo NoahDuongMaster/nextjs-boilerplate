@@ -1,4 +1,4 @@
-import { env } from 'env.mjs';
+import { envClient } from './env-client';
 
 const ACCESS_TOKEN_STORAGE_KEY = 'access_token';
 const REFRESH_TOKEN_STORAGE_KEY = 'refresh_token';
@@ -14,7 +14,7 @@ const ACCESS_TOKEN_COOKIE_CONFIG = {
   domain:
     process.env.NODE_ENV === 'development'
       ? undefined
-      : env.NEXT_PUBLIC_ALLOWED_COOKIE_DOMAIN,
+      : envClient.NEXT_PUBLIC_CORS_COOKIE,
 };
 
 const REFRESH_TOKEN_COOKIE_CONFIG = {
@@ -25,21 +25,12 @@ const REFRESH_TOKEN_COOKIE_CONFIG = {
   domain:
     process.env.NODE_ENV === 'development'
       ? undefined
-      : env.NEXT_PUBLIC_ALLOWED_COOKIE_DOMAIN,
+      : envClient.NEXT_PUBLIC_CORS_COOKIE,
 };
-
-// eslint-disable-next-line no-unused-vars
-enum AUTH_METHOD {
-  // eslint-disable-next-line no-unused-vars
-  COOKIE = 'cookie',
-  // eslint-disable-next-line no-unused-vars
-  HEADER = 'header',
-}
 
 export {
   ACCESS_TOKEN_COOKIE_CONFIG,
   REFRESH_TOKEN_COOKIE_CONFIG,
   ACCESS_TOKEN_STORAGE_KEY,
   REFRESH_TOKEN_STORAGE_KEY,
-  AUTH_METHOD,
 };

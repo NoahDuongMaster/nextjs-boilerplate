@@ -1,25 +1,26 @@
 import WebVitals from '@/components/features/web-vitals';
-import { META_DATA_DEFAULT } from '@/utils/constants/seo';
-import { cn } from '@/utils/helpers/common';
+import { META_DATA_DEFAULT } from '@/shared/seo.shared';
 
-import '@styles/globals.css';
+import '@shared/styles.shared.css';
 
 import dynamic from 'next/dynamic';
-import { Inter as FontSans } from 'next/font/google';
+import { Open_Sans } from 'next/font/google';
 import Header from '@/components/common/header';
+import NextUIStore from '@/stores/nextui.store';
+import SolanaWalletsStore from '@/stores/solana-wallets.store';
+import { cn } from '@nextui-org/react';
 import NextTopLoader from 'nextjs-toploader';
-
-import NextuiProviders from './nextui-provider';
-import SolanaWalletProvider from './solana-wallets-provider';
 
 const SonnerToaster = dynamic(() => import('@/components/common/toast/sonner'));
 
-const fontSans = FontSans({
+const fontSans = Open_Sans({
   subsets: ['latin'],
   variable: '--font-sans',
+  display: 'swap',
+  preload: true,
 });
 
-const metadata = META_DATA_DEFAULT;
+export const metadata = META_DATA_DEFAULT;
 
 const RootLayout = ({ children }: { children: React.ReactNode }) => {
   return (
@@ -32,19 +33,16 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
       >
         <WebVitals />
         <NextTopLoader />
-        <NextuiProviders>
-          <SolanaWalletProvider>
+        <NextUIStore>
+          <SolanaWalletsStore>
             <Header />
             {children}
-          </SolanaWalletProvider>
-        </NextuiProviders>
+          </SolanaWalletsStore>
+        </NextUIStore>
         <SonnerToaster />
       </body>
     </html>
   );
 };
 
-// eslint-disable-next-line import/no-unused-modules
 export default RootLayout;
-
-export { metadata };
