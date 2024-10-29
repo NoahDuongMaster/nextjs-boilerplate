@@ -8,7 +8,7 @@ import {
   NavbarItem,
 } from '@nextui-org/react';
 
-import ConnectButton from './button/connect-button';
+import ConnectButton from '../button/connect-button';
 
 function Header() {
   return (

@@ -1,11 +1,11 @@
 import WebVitals from '@/components/features/web-vitals';
-import { META_DATA_DEFAULT } from '@/shared/seo.shared';
+import { META_DATA_DEFAULT } from '@/constants/seo.constant';
 
-import '@shared/styles.shared.css';
+import '@styles/global.style.css';
 
 import dynamic from 'next/dynamic';
 import { Open_Sans } from 'next/font/google';
-import Header from '@/components/common/header';
+import Header from '@/components/common/layout/header';
 import NextUIStore from '@/stores/nextui.store';
 import SolanaWalletsStore from '@/stores/solana-wallets.store';
 import { cn } from '@nextui-org/react';

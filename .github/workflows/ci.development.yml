@@ -24,9 +24,7 @@ jobs:
       - name: Building NextJS Boilerplate
         run: yarn build
         env:
-          # NEXT_PUBLIC_API_ENDPOINT: ${{ secrets.NEXT_PUBLIC_API_ENDPOINT }}
           NEXT_PUBLIC_API_ENDPOINT: 'http://localhost:3000'
           NEXT_PUBLIC_BASE_URL: 'http://localhost:3000'
-          NEXT_PUBLIC_AUTH_METHOD: cookie
-          NEXT_PUBLIC_ALLOWED_COOKIE_DOMAIN: localhost
-          ALLOWED_ORIGINS: '*.localhost:3000,localhost:3000'
+          NEXT_PUBLIC_CORS_COOKIE: localhost
+          CORS_ORIGIN: '*.localhost:3000,localhost:3000'

@@ -3,7 +3,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { WEB_ROUTES } from '@/shared/routes.shared';
+import { WEB_ROUTES } from '@/constants/routes.constant';
 
 const NotFound = () => {
   const router = useRouter();

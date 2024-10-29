@@ -9,7 +9,7 @@ const GET = async (request: NextRequest) => {
   await new Promise((resolve) => setTimeout(resolve, delay ? +delay : 0));
   if (error) {
     return NextResponse.json(
-      { statusCodew: 500, message: 'Internal Server Error!' },
+      { statusCode: 500, message: 'Internal Server Error!' },
       { status: 500 },
     );
   }

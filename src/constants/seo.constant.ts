@@ -1,6 +1,5 @@
 import { Metadata } from 'next';
-
-import { envClient } from './env-client';
+import { env } from '@/configurations/env.configuration';
 
 const META_DATA_DEFAULT: Metadata = {
   applicationName: 'NextJS Boilerplate',
@@ -22,7 +21,7 @@ const META_DATA_DEFAULT: Metadata = {
     default: 'Home',
     template: '%s | NextJS Boilerplate',
   },
-  metadataBase: new URL(envClient.NEXT_PUBLIC_BASE_URL),
+  metadataBase: new URL(env.client.NEXT_PUBLIC_BASE_URL),
 };
 
 export { META_DATA_DEFAULT };

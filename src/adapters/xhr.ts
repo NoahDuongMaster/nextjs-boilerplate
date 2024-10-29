@@ -1,18 +1,17 @@
-import { envClient } from '@/shared/env-client';
-import { ACCESS_TOKEN_STORAGE_KEY } from '@/shared/jwt.shared';
-import { AUTH_SCHEMES } from '@/shared/schema.shared';
+import { env } from '@/configurations/env.configuration';
+import { jwt } from '@/configurations/jwt.configuration';
 import qs from 'qs';
 
-const BASE_URL = envClient.NEXT_PUBLIC_API_ENDPOINT;
-const DEFAULT_TIMEOUT = 20000;
+const BASE_URL = env.client.NEXT_PUBLIC_API_ENDPOINT;
+const DEFAULT_TIMEOUT = 30000;
 
 const getDefaultHeaders = (): HeadersInit => {
   const headers: HeadersInit = {
     'Content-Type': 'application/json',
   };
 
-  if (envClient.NEXT_PUBLIC_AUTH_SCHEMES === AUTH_SCHEMES.Values.header) {
-    const accessToken = localStorage.getItem(ACCESS_TOKEN_STORAGE_KEY);
+  if (typeof window !== 'undefined') {
+    const accessToken = localStorage.getItem(jwt.accessToken.key);
     if (accessToken) {
       headers.Authorization = `Bearer ${accessToken}`;
     }
@@ -21,12 +20,12 @@ const getDefaultHeaders = (): HeadersInit => {
   return headers;
 };
 
-const request = async (
+const request = async <T>(
   method: 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE',
   url: string,
   data?: any,
   options?: RequestInit,
-): Promise<Response | null | { message: string }> => {
+): Promise<T> => {
   const controller = new AbortController();
   const timeout = setTimeout(() => controller.abort(), DEFAULT_TIMEOUT);
 
@@ -57,8 +56,8 @@ const request = async (
   try {
     const res = await fetch(BASE_URL + url, commonOptions);
     return await res.json();
-  } catch {
-    return { message: "Something wen't wrong!" };
+  } catch (error) {
+    throw error;
   } finally {
     clearTimeout(timeout);
   }

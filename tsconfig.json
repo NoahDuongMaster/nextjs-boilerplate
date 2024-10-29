@@ -5,10 +5,11 @@
       "@/*": ["src/*"],
       "@adapters/*": ["src/adapters/*"],
       "@components/*": ["src/components/*"],
+      "@constants/*": ["src/constants/*"],
+      "@helpers/*": ["src/helpers/*"],
       "@services/*": ["src/services/*"],
-      "@shared/*": ["src/shared/*"],
-      "@scripts/*": ["scripts/*"],
-      "@stores/*": ["stores/*"]
+      "@stores/*": ["stores/*"],
+      "@styles/*": ["src/styles/*"]
     },
     "target": "es5",
     "lib": ["dom", "dom.iterable", "esnext"],

@@ -4,8 +4,7 @@ import createJiti from 'jiti';
 
 const jiti = createJiti(fileURLToPath(import.meta.url));
 
-jiti('./src/shared/env-client.ts');
-jiti('./src/shared/env-server.ts');
+jiti('./src/configurations/env.configuration.ts');
 
 const securityHeaders = [
   { key: 'X-DNS-Prefetch-Control', value: 'on' },
