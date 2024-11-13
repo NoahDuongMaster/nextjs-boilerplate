@@ -17,6 +17,6 @@ export default defineConfig({
         'src/utils/**',
       ],
     },
-    setupFiles: ['./src/__test__/setup/matchMedia.ts', 'dotenv/config'],
+    setupFiles: ['./src/__test__/setup/matchMedia.ts'],
   },
 });
