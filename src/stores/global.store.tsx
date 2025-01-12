@@ -13,6 +13,7 @@ type GlobalState = {
 };
 
 type GlobalActions = {
+  // eslint-disable-next-line no-unused-vars
   setTheme: (theme: 'dark' | 'light') => void;
 };
 
@@ -49,7 +50,7 @@ interface GlobalStoreProviderProps {
 const GlobalStoreContext = createContext<StoreApi<GlobalStore> | null>(null);
 
 const GlobalStoreProvider = ({ children }: GlobalStoreProviderProps) => {
-  const storeRef = useRef<StoreApi<GlobalStore>>();
+  const storeRef = useRef<StoreApi<GlobalStore> | null>(null);
   if (!storeRef.current) {
     storeRef.current = createGlobalStore();
   }
@@ -83,6 +84,7 @@ const GlobalStoreProvider = ({ children }: GlobalStoreProviderProps) => {
   );
 };
 
+// eslint-disable-next-line no-unused-vars
 const useGlobalStore = <T,>(selector: (store: GlobalStore) => T): T => {
   const globalStoreContext = useContext(GlobalStoreContext);
 

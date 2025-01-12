@@ -1,12 +1,12 @@
+import { Request } from '@/adapters/xhr';
 import { API_ROUTES } from '@/constants/routes.constant';
-import { request } from '@adapters/xhr';
 
 import { TGetMockQuery, TGetMockResponse } from './mock.schema';
 
-const getMock = async ({ delay, error }: TGetMockQuery) =>
-  request<TGetMockResponse>('GET', API_ROUTES.GET_MOCK, {
+const request = new Request();
+
+export const getMockAPI = async ({ delay, error }: TGetMockQuery) =>
+  request.get<TGetMockResponse>(API_ROUTES.GET_MOCK, {
     delay,
     error,
   });
-
-export { getMock };

@@ -1,28 +1,33 @@
 import { env } from './env.configuration';
 
+const PROJECT_NAME = env.client.NEXT_PUBLIC_PROJECT_NAME!;
+
 const jwt = {
   accessToken: {
-    key: 'access_token',
+    key: `${PROJECT_NAME}_access_token`,
     config: {
-      maxAge: 60 * 5, // 5 minutes
+      maxAge: 60 * 60 * 24, // 1 day
       httpOnly: false,
       secure: process.env.NODE_ENV !== 'development',
-      sameSite: 'lax' as 'lax',
+      sameSite: 'lax' as const,
       domain:
         process.env.NODE_ENV === 'development'
           ? undefined
-          : env.client.NEXT_PUBLIC_CORS_COOKIE,
+          : env.client.NEXT_PUBLIC_CORS_COOKIE!,
     },
   },
   refreshToken: {
-    maxAge: 60 * 60 * 24 * 7, // 7 days
-    httpOnly: false,
-    secure: process.env.NODE_ENV !== 'development',
-    sameSite: 'lax' as 'lax',
-    domain:
-      process.env.NODE_ENV === 'development'
-        ? undefined
-        : env.client.NEXT_PUBLIC_CORS_COOKIE,
+    key: `${PROJECT_NAME}_refresh_token`,
+    config: {
+      maxAge: 60 * 60 * 24 * 7, // 7 days
+      httpOnly: false,
+      secure: process.env.NODE_ENV !== 'development',
+      sameSite: 'lax' as const,
+      domain:
+        process.env.NODE_ENV === 'development'
+          ? undefined
+          : env.client.NEXT_PUBLIC_CORS_COOKIE!,
+    },
   },
 };
 export { jwt };

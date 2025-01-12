@@ -1,17 +1,14 @@
 import WebVitals from '@/components/features/web-vitals';
 import { META_DATA_DEFAULT } from '@/constants/seo.constant';
 
-import '@styles/global.style.css';
+import '@/styles/global.style.css';
 
-import dynamic from 'next/dynamic';
 import { Open_Sans } from 'next/font/google';
-import Header from '@/components/common/layout/header';
-import NextUIStore from '@/stores/nextui.store';
+import { cn } from '@/helpers/tailwind.helper';
 import SolanaWalletsStore from '@/stores/solana-wallets.store';
-import { cn } from '@nextui-org/react';
 import NextTopLoader from 'nextjs-toploader';
 
-const SonnerToaster = dynamic(() => import('@/components/common/toast/sonner'));
+import ReactQueryStore from '../stores/react-query.store';
 
 const fontSans = Open_Sans({
   subsets: ['latin'],
@@ -33,13 +30,9 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
       >
         <WebVitals />
         <NextTopLoader />
-        <NextUIStore>
-          <SolanaWalletsStore>
-            <Header />
-            {children}
-          </SolanaWalletsStore>
-        </NextUIStore>
-        <SonnerToaster />
+        <SolanaWalletsStore>
+          <ReactQueryStore>{children}</ReactQueryStore>
+        </SolanaWalletsStore>
       </body>
     </html>
   );

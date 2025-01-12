@@ -1,10 +1,10 @@
 import { fileURLToPath } from 'node:url';
 import type { NextConfig } from 'next';
-import createJiti from 'jiti';
+import { createJiti } from 'jiti';
 
 const jiti = createJiti(fileURLToPath(import.meta.url));
 
-jiti('./src/configurations/env.configuration.ts');
+jiti.esmResolve('./src/configurations/env.configuration.ts');
 
 const securityHeaders = [
   { key: 'X-DNS-Prefetch-Control', value: 'on' },
@@ -31,14 +31,15 @@ const nextConfig: NextConfig = {
     appIsrStatus: false,
   },
   experimental: {
-    cssChunking: 'loose',
+    cssChunking: true,
     optimizePackageImports: [],
-    reactCompiler: true,
+    reactCompiler: process.env.NODE_ENV === 'production',
     serverActions: {
       allowedOrigins: process.env.CORS_ORIGINS?.split(','),
     },
     webVitalsAttribution: ['FCP', 'TTFB'],
     useLightningcss: false,
+    webpackMemoryOptimizations: true,
   },
   images: {
     formats: ['image/webp'],
@@ -56,7 +57,6 @@ const nextConfig: NextConfig = {
   output: 'standalone',
   poweredByHeader: false,
   productionBrowserSourceMaps: false,
-
   reactStrictMode: true,
   serverExternalPackages: ['pino-pretty'],
 };

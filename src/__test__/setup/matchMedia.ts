@@ -1,6 +1,6 @@
 import { vi } from 'vitest';
 
-HTMLCanvasElement.prototype.getContext = vi.fn() as any;
+HTMLCanvasElement.prototype.getContext = vi.fn();
 
 Object.defineProperty(window, 'matchMedia', {
   writable: true,

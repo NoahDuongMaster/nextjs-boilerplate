@@ -13,7 +13,7 @@ const GET = async (request: NextRequest) => {
       { status: 500 },
     );
   }
-  return NextResponse.json(Math.random());
+  return NextResponse.json({ data: `Data!` });
 };
 
 export { GET };

@@ -21,7 +21,7 @@ const META_DATA_DEFAULT: Metadata = {
     default: 'Home',
     template: '%s | NextJS Boilerplate',
   },
-  metadataBase: new URL(env.client.NEXT_PUBLIC_BASE_URL),
+  metadataBase: new URL(env.client.NEXT_PUBLIC_BASE_URL ?? ''),
 };
 
 export { META_DATA_DEFAULT };
